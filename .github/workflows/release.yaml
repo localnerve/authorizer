@@ -16,6 +16,9 @@ on:
         type: boolean
   release:
     types: [created]
+  push:
+    tags:
+      - "v*"
 
 jobs:
   releases:
@@ -69,11 +72,11 @@ jobs:
           mkdir -p authorizer-${VERSION}-windows-amd64/build authorizer-${VERSION}-windows-amd64/app authorizer-${VERSION}-windows-amd64/dashboard && cp build/windows/amd64/server.exe authorizer-${VERSION}-windows-amd64/build/ && cp .env authorizer-${VERSION}-windows-amd64/.env && cp -rf app/build authorizer-${VERSION}-windows-amd64/app/build && cp -rf templates authorizer-${VERSION}-windows-amd64/ && cp -rf dashboard/build authorizer-${VERSION}-windows-amd64/dashboard/build && zip -vr authorizer-${VERSION}-windows-amd64.zip authorizer-${VERSION}-windows-amd64
       - name: Upload assets
         run: |
-          github-assets-uploader -f authorizer-${VERSION}-darwin-arm64.tar.gz -mediatype application/gzip -repo authorizerdev/authorizer -token ${{secrets.RELEASE_TOKEN}} -tag ${VERSION}
-          github-assets-uploader -f authorizer-${VERSION}-darwin-amd64.tar.gz -mediatype application/gzip -repo authorizerdev/authorizer -token ${{secrets.RELEASE_TOKEN}} -tag ${VERSION}
-          github-assets-uploader -f authorizer-${VERSION}-linux-amd64.tar.gz -mediatype application/gzip -repo authorizerdev/authorizer -token ${{secrets.RELEASE_TOKEN}} -tag ${VERSION}
-          github-assets-uploader -f authorizer-${VERSION}-linux-arm64.tar.gz -mediatype application/gzip -repo authorizerdev/authorizer -token ${{secrets.RELEASE_TOKEN}} -tag ${VERSION}
-          github-assets-uploader -f authorizer-${VERSION}-windows-amd64.zip -mediatype application/zip -repo authorizerdev/authorizer -token ${{secrets.RELEASE_TOKEN}} -tag ${VERSION}
+          github-assets-uploader -f authorizer-${VERSION}-darwin-arm64.tar.gz -mediatype application/gzip -repo localnerve/authorizer -token ${{secrets.GITHUB_TOKEN}} -tag ${VERSION}
+          github-assets-uploader -f authorizer-${VERSION}-darwin-amd64.tar.gz -mediatype application/gzip -repo localnerve/authorizer -token ${{secrets.GITHUB_TOKEN}} -tag ${VERSION}
+          github-assets-uploader -f authorizer-${VERSION}-linux-amd64.tar.gz -mediatype application/gzip -repo localnerve/authorizer -token ${{secrets.GITHUB_TOKEN}} -tag ${VERSION}
+          github-assets-uploader -f authorizer-${VERSION}-linux-arm64.tar.gz -mediatype application/gzip -repo localnerve/authorizer -token ${{secrets.GITHUB_TOKEN}} -tag ${VERSION}
+          github-assets-uploader -f authorizer-${VERSION}-windows-amd64.zip -mediatype application/zip -repo localnerve/authorizer -token ${{secrets.GITHUB_TOKEN}} -tag ${VERSION}
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
