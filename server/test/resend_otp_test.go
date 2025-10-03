@@ -35,7 +35,6 @@ func resendOTPTest(t *testing.T, s TestSetup) {
 			Email:    refs.NewStringRef(email),
 			Password: s.TestInfo.Password,
 		})
-
 		// Response should be empty as email is not verified
 		assert.Error(t, err)
 		assert.Nil(t, loginRes)

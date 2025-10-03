@@ -47,7 +47,6 @@ func verifyOTPTest(t *testing.T, s TestSetup) {
 				Email:    refs.NewStringRef(email),
 				Password: s.TestInfo.Password,
 			})
-
 			// Response should be empty because email is not verified
 			assert.Error(t, err)
 			assert.Nil(t, loginRes)

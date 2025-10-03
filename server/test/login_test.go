@@ -24,6 +24,7 @@ func loginTests(t *testing.T, s TestSetup) {
 		})
 		assert.NoError(t, err)
 		assert.NotNil(t, signUpRes)
+
 		res, err := resolvers.LoginResolver(ctx, model.LoginInput{
 			Email:    refs.NewStringRef(email),
 			Password: s.TestInfo.Password,
